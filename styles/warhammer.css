@@ -37,6 +37,11 @@ body {
 header {
     background-color: var(--cerulean-blue);
     padding-bottom: 10px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
 }
 
 header h1 {
@@ -44,6 +49,18 @@ header h1 {
     font-family: var(--headers-font);
     font-size: 5rem;
     padding-top: 10px;
+}
+
+#burger-menu {
+    position: absolute;
+    left: 45px;
+    top: 204px;
+    padding: 5px 20px;
+    
+}
+
+#burger-menu img {
+    max-height: 70px;
 }
 
 main {
@@ -69,14 +86,71 @@ section h2 {
     justify-content: space-evenly;
 }
 
-footer {
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    color: var(--seasalt);
     background-color: var(--cerulean-blue);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
+button:hover {
+    background-color: #285a70;
+}
 
+footer {
+    background-color: var(--cerulean-blue);
+    color: var(--seasalt);
+}
+
+/*Gameplay page CSS*/
+/*Battle Round section with arrow buttons*/
+#round-section-container {
+    margin-top: 40px;
+}
+
+#round-section {
+    display: flex;
+    justify-content: center;
+}
+
+#round-section button {
+    margin: 0px 30px;
+}
+
+/*Factions page*/
+.horizontal-section button {
+    padding: +5px;
+}
 
 @media (max-width: 1000px) {
     header h1 {
         font-size: 2.9em;
     }
+
+    #burger-menu {
+        position: absolute;
+        left: 15px;
+        top: 120px;
+        padding: 5px 20px;
+        
+    }
+    
+    #burger-menu img {
+        max-height: 40px;
+    }
+
+    .horizontal-section {
+        display: block;
+    }
+}
+
+@media (max-width: 550px) {
+    #burger-menu {
+        top: 180px
+    }
+
 }
