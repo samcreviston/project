@@ -1,21 +1,38 @@
 
 //Home page buttons to sub pages
-document.getElementById('gameplay-button').addEventListener('click', function() {
-    window.location.href = 'gameplay.html';
-});
+const gameplayButton = document.getElementById('gameplay-button');
+if (gameplayButton) {
+    gameplayButton.addEventListener('click', function() {
+        window.location.href = 'gameplay.html';
+    });
+}
 
-document.getElementById('faction-button').addEventListener('click', function() {
-    window.location.href = 'army-factions.html';
-});
+const factionButton = document.getElementById('faction-button');
+    if (factionButton) {
+        factionButton.addEventListener('click', function() {
+            window.location.href = 'army-factions.html';
+        });
+    }
 
-document.getElementById('hobby-button').addEventListener('click', function() {
-    window.location.href = 'hobby-of-warhammer.html';
-});
+const hobbyButton = document.getElementById('hobby-button');
+if (hobbyButton) {
+    hobbyButton.addEventListener('click', function() {
+        window.location.href = 'hobby-of-warhammer.html';
+    });
+}
 
 
 //gameplay page
-document.getElementById("next-button").addEventListener("click", onNextButtonClick);
-document.getElementById("previous-button").addEventListener("click", onPreviousButtonClick);
+const nextButton = document.getElementById('next-button');
+if (nextButton) {
+    nextButton.addEventListener('click', onNextButtonClick);
+}
+
+const previousButton = document.getElementById('previous-button');
+if (previousButton) {
+    previousButton.addEventListener('click', onPreviousButtonClick);
+}
+
 
 const battleRoundPhases = [
     {
@@ -42,32 +59,65 @@ const battleRoundPhases = [
 
 let currentPhaseIndex = 0;
 
-function populatePhaseInfo(phaseArray) {
-    phaseArray.array.forEach(element => {
-        const card = document.createElement('section');
+function populatePhaseInfo() {
+    const phase = battleRoundPhases[currentPhaseIndex];
 
-        // Create elements
-        const phaseName = document.createElement('h2');
-        const phaseDescription = document.createElement('p');
+    if (phase) {
+        const phaseInfoSection = document.getElementById('phase-info');
 
-        //populate elements
-        phaseName.textContent = phase.name;
-        phaseDescription.textContent = phase.description;
+        if (phaseInfoSection) {
+            const phaseNameElement = document.createElement('h2');
+            const phaseDescription = document.createElement('p');
 
-        //append elements
-        card.append(phaseName);
-        card.append(phaseDescription);
+            phaseNameElement.textContent = phase.name.toUpperCase();
+            phaseDescription.textContent = phase.description;
 
-        //append card to section
-        document.querySelector('main').appendChild(card);
-    
-    });
+            phaseInfoSection.innerHTML = ''; // Clear previous content
+            phaseInfoSection.appendChild(phaseNameElement);
+            phaseInfoSection.appendChild(phaseDescription);
+        }
     }
+}
 
-populatePhaseInfo(battleRoundPhases);
+function onNextButtonClick() {
+    currentPhaseIndex = (currentPhaseIndex + 1) % battleRoundPhases.length;
+    populatePhaseInfo();
+}
+
+function onPreviousButtonClick() {
+    currentPhaseIndex = (currentPhaseIndex - 1 + battleRoundPhases.length) % battleRoundPhases.length;
+    populatePhaseInfo();
+}
+
+populatePhaseInfo(); 
 
 
 //faction page
+const spaceMarinesButton = document.getElementById('space-marines');
+if (spaceMarinesButton) {
+    spaceMarinesButton.addEventListener('click', () => populateFactionInfo("Space Marines"));
+}
+
+const aeldariButton = document.getElementById('aeldari');
+if (aeldariButton) {
+    aeldariButton.addEventListener('click', () => populateFactionInfo("Aeldari"));
+}
+
+const tauEmpireButton = document.getElementById('tau-empire');
+if (tauEmpireButton) {
+    tauEmpireButton.addEventListener('click', () => populateFactionInfo("T'au"));
+}
+
+const spaceWolvesButton = document.getElementById('space-wolves');
+if (spaceWolvesButton) {
+    spaceWolvesButton.addEventListener('click', () => populateFactionInfo("Space Wolves"));
+}
+
+const tyranidsButton = document.getElementById('tyranids');
+if (tyranidsButton) {
+    tyranidsButton.addEventListener('click', () => populateFactionInfo("Tyranids"));
+}
+
 const Factions = [
     {
         name: "Space Marines",
@@ -140,6 +190,35 @@ const Factions = [
         combatRange: "close-range"
     }
 ];
+
+function populateFactionInfo(factionName) {
+    const faction = Factions.find(f => f.name === factionName);
+
+    if (faction) {
+        const card = document.createElement('section');
+        
+        const factionNameElement = document.createElement('h2');
+        const factionDescription = document.createElement('p');
+        const factionEpicHeroes = document.createElement('h4');
+        const factionBattleline = document.createElement('h4');
+        const factionRange = document.createElement('p');
+
+        factionNameElement.textContent = faction.name;
+        factionDescription.textContent = faction.description;
+        factionEpicHeroes.textContent = `Epic Heroes: ${faction.epicHeroes.join(', ')}`;
+        factionBattleline.textContent = `Battleline Units: ${faction.battlelineUnits.join(', ')}`;
+        factionRange.textContent = `Combat Range: ${faction.combatRange}`;
+
+        card.appendChild(factionNameElement);
+        card.appendChild(factionDescription);
+        card.appendChild(factionEpicHeroes);
+        card.appendChild(factionBattleline);
+        card.appendChild(factionRange);
+
+        document.querySelector('main').appendChild(card);
+    }
+}
+
 
 
 
